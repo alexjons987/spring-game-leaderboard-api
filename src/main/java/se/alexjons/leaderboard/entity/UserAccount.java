@@ -17,7 +17,7 @@ public class UserAccount {
     private Long score;
 
     @OneToMany
-    @JoinColumn(name = "session_id")
+    @JoinColumn(name = "id")
     private Set<GameSession> sessions;
 
     @ManyToMany(fetch = FetchType.EAGER)

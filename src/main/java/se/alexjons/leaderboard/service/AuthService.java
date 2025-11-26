@@ -42,8 +42,8 @@ public class AuthService {
         userAccount.setPassword(passwordEncoder.encode(userAccountRequestDTO.getPassword()));
         userAccount.setScore(0L);
 
-        UserRole userRole = roleRepository.findByName("ROLE_USER")
-                .orElseThrow(() -> new IllegalStateException("Role ROLE_USER not found"));
+        UserRole userRole = roleRepository.findByName("USER")
+                .orElseThrow(() -> new IllegalStateException("Role USER not found"));
 
         userAccount.setRoles(Set.of(userRole));
 
