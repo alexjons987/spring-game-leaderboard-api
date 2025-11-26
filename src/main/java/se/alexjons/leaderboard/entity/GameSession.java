@@ -16,6 +16,8 @@ public class GameSession {
 
     private Long score;
 
+    private Long duration;
+
     public GameSession() {
     }
 
@@ -41,5 +43,13 @@ public class GameSession {
 
     public void setScore(Long score) {
         this.score = score;
+    }
+
+    public Long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Long duration) {
+        this.duration = duration;
     }
 }

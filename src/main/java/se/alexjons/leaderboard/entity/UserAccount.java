@@ -16,8 +16,7 @@ public class UserAccount {
     private String password;
     private Long score;
 
-    @OneToMany
-    @JoinColumn(name = "id")
+    @OneToMany(mappedBy = "userAccount")
     private Set<GameSession> sessions;
 
     @ManyToMany(fetch = FetchType.EAGER)
