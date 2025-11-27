@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import se.alexjons.leaderboard.dto.GameSessionDTO;
+import se.alexjons.leaderboard.dto.GameSessionRequestDTO;
+import se.alexjons.leaderboard.dto.GameSessionResponseDTO;
 import se.alexjons.leaderboard.dto.GameSessionPublicDTO;
 import se.alexjons.leaderboard.service.GameSessionService;
 
@@ -19,7 +20,6 @@ public class GameSessionController {
     GameSessionService gameSessionService;
 
     // Admin
-    // Get ALL sessions of user
     @GetMapping("/all")
     public ResponseEntity<List<GameSessionPublicDTO>> getAllSessions() {
         return ResponseEntity.ok(gameSessionService.getAllGameSessions());
@@ -34,12 +34,14 @@ public class GameSessionController {
     // User
     // Add session
     @PostMapping
-    public ResponseEntity<GameSessionDTO> addNewSession(@Valid @RequestBody GameSessionDTO gameSessionDTO) {
-        return ResponseEntity.status(501).build(); // TODO: Implement
+    public ResponseEntity<GameSessionResponseDTO> addNewSession(
+            @Valid @RequestBody GameSessionRequestDTO dto,
+            Authentication authentication) {
+        return ResponseEntity.ok(gameSessionService.addNewGameSession(dto, authentication));
     }
 
     @GetMapping
-    public ResponseEntity<List<GameSessionDTO>> getUserSessions(Authentication authentication) {
+    public ResponseEntity<List<GameSessionResponseDTO>> getUserSessions(Authentication authentication) {
         return ResponseEntity.ok(gameSessionService.getGameSessionsForCurrentUser(authentication));
     }
 

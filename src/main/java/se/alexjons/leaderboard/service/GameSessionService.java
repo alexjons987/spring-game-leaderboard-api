@@ -1,11 +1,14 @@
 package se.alexjons.leaderboard.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import se.alexjons.leaderboard.dto.GameSessionDTO;
+import se.alexjons.leaderboard.dto.GameSessionRequestDTO;
+import se.alexjons.leaderboard.dto.GameSessionResponseDTO;
 import se.alexjons.leaderboard.dto.GameSessionPublicDTO;
+import se.alexjons.leaderboard.entity.GameSession;
 import se.alexjons.leaderboard.entity.UserAccount;
 import se.alexjons.leaderboard.mapper.GameSessionMapper;
 import se.alexjons.leaderboard.repository.GameSessionRepository;
@@ -31,7 +34,7 @@ public class GameSessionService {
                 .toList();
     }
 
-    public List<GameSessionDTO> getGameSessionsForCurrentUser(Authentication authentication) {
+    public List<GameSessionResponseDTO> getGameSessionsForCurrentUser(Authentication authentication) {
 
         UserAccount user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -46,5 +49,25 @@ public class GameSessionService {
         return gameSessionRepository.findTop10ByOrderByScoreDesc().stream()
                 .map(gameSessionMapper::toPublicDTO)
                 .toList();
+    }
+
+    @Transactional
+    public GameSessionResponseDTO addNewGameSession(GameSessionRequestDTO dto, Authentication authentication) {
+
+        UserAccount user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        GameSession gameSession = new GameSession();
+
+        gameSession.setUserAccount(user);
+        gameSession.setScore(dto.getScore());
+        gameSession.setDuration(dto.getDuration());
+
+        GameSession savedGameSession = gameSessionRepository.save(gameSession); // Save new game session
+
+        user.setScore(user.getScore() + dto.getScore()); // Update total score in user
+        userRepository.save(user);
+
+        return gameSessionMapper.toDTO(savedGameSession);
     }
 }

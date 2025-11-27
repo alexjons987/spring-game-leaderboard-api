@@ -1,15 +1,15 @@
 package se.alexjons.leaderboard.dto;
 
-public class GameSessionDTO {
+public class GameSessionResponseDTO {
 
     private Long id;
     private Long score;
     private Long duration;
 
-    public GameSessionDTO() {
+    public GameSessionResponseDTO() {
     }
 
-    public GameSessionDTO(Long id, Long score, Long duration) {
+    public GameSessionResponseDTO(Long id, Long score, Long duration) {
         this.id = id;
         this.score = score;
         this.duration = duration;

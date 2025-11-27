@@ -1,17 +1,17 @@
 package se.alexjons.leaderboard.mapper;
 
 import org.springframework.stereotype.Component;
-import se.alexjons.leaderboard.dto.GameSessionDTO;
+import se.alexjons.leaderboard.dto.GameSessionResponseDTO;
 import se.alexjons.leaderboard.dto.GameSessionPublicDTO;
 import se.alexjons.leaderboard.entity.GameSession;
 
 @Component
 public class GameSessionMapper {
 
-    public GameSessionDTO toDTO(GameSession gameSession) {
+    public GameSessionResponseDTO toDTO(GameSession gameSession) {
         if (gameSession == null) return null;
 
-        return new GameSessionDTO(
+        return new GameSessionResponseDTO(
                 gameSession.getId(),
                 gameSession.getScore(),
                 gameSession.getDuration()
