@@ -19,3 +19,11 @@ INSERT INTO sessions (id, user_id, score, duration)
             (3, 3, 123, 300),
             (4, 3, 234, 350),
             (5, 3, 345, 425);
+
+INSERT INTO achievements (id, name, description)
+    VALUES  (1, "Welcome!", "Play your first session."),
+            (2, "Getting started!", "Acquire over 1000 total score.");
+
+INSERT INTO user_achievements (user_id, achievement_id)
+    VALUES  (2, 1),
+            (3, 1);

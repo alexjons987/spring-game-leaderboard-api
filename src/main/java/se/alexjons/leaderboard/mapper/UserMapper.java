@@ -3,6 +3,7 @@ package se.alexjons.leaderboard.mapper;
 import org.springframework.stereotype.Component;
 import se.alexjons.leaderboard.dto.UserAccountResponseDTO;
 import se.alexjons.leaderboard.entity.UserAccount;
+import se.alexjons.leaderboard.entity.UserAchievement;
 import se.alexjons.leaderboard.entity.UserRole;
 
 @Component
@@ -14,6 +15,9 @@ public class UserMapper {
         return new UserAccountResponseDTO(
                 userAccount.getUsername(),
                 userAccount.getScore(),
+                userAccount.getAchievements().stream()
+                        .map(UserAchievement::getName)
+                        .toList(),
                 userAccount.getRoles().stream()
                         .map(UserRole::getName)
                         .toList()

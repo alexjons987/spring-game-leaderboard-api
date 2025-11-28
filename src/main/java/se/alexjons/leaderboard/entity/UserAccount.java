@@ -21,6 +21,14 @@ public class UserAccount {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
+            name = "user_achievements",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "achievement_id")
+    )
+    private Set<UserAchievement> achievements;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
@@ -74,6 +82,14 @@ public class UserAccount {
 
     public void setSessions(Set<GameSession> sessions) {
         this.sessions = sessions;
+    }
+
+    public Set<UserAchievement> getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(Set<UserAchievement> achievements) {
+        this.achievements = achievements;
     }
 
     public Set<UserRole> getRoles() {
