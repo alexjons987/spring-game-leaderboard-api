@@ -21,8 +21,9 @@ INSERT INTO sessions (id, user_id, score, duration)
             (5, 3, 345, 425);
 
 INSERT INTO achievements (id, name, description)
-    VALUES  (1, "Welcome!", "Play your first session."),
-            (2, "Getting started!", "Acquire over 1000 total score.");
+    VALUES  (1, "First Blood", "Play your first session."),
+            (2, "Damage Dealer", "Acquire over 1000 total score."),
+            (3, "NET Master", "Acquire >= 1000 score in a single session.");
 
 INSERT INTO user_achievements (user_id, achievement_id)
     VALUES  (2, 1),

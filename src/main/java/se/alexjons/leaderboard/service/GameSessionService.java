@@ -85,10 +85,14 @@ public class GameSessionService {
     private void updateUserAchievements(UserAccount userAccount, GameSession gameSession) {
         Set<UserAchievement> userAchievements = userAccount.getAchievements();
 
-        addAchievementIfMissing(userAccount, "Welcome!");
+        addAchievementIfMissing(userAccount, "First Blood");
 
         if (userAccount.getScore() >= 1000) {
-            addAchievementIfMissing(userAccount, "Getting started!");
+            addAchievementIfMissing(userAccount, "Damage Dealer");
+        }
+
+        if (gameSession.getScore() >= 1000) {
+            addAchievementIfMissing(userAccount, "NET Master");
         }
     }
 
